@@ -1,6 +1,7 @@
 import { Button, Flex, Grid, GridItem, Image, Text } from '@chakra-ui/react'
 import { GetServerSideProps } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/react'
+import Category from '../components/home/category'
 import Destach from '../components/home/Destach'
 import Header from '../components/home/header'
 
@@ -9,7 +10,7 @@ export default function Home() {
     <Grid
       width="100%"
       templateAreas={`"header""destach" "category""promo""footer"`}
-      gridTemplateRows={'17% 30% 10% 15% 1fr'}
+      gridTemplateRows={'17% 35% 8% 15% 1fr'}
       gridTemplateColumns={'1fr'}
       height="100vh"
     >
@@ -17,10 +18,8 @@ export default function Home() {
 
       <Destach />
 
-      <GridItem pl="2" bg="green.500" area={'category'}>
-        category
-      </GridItem>
-      <GridItem pl="2" bg="yellow.200" area={'promo'}>
+      <Category />
+      <GridItem pl="2" area={'promo'}>
         promo
       </GridItem>
       <GridItem pl="2" bg="blue.300" area={'footer'}>
