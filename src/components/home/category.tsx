@@ -1,9 +1,69 @@
-import { GridItem } from '@chakra-ui/react'
-
+import { Box, Circle, GridItem, HStack } from '@chakra-ui/react'
+//import main from '../../../public/mainPhoto2.'
 export default function Category() {
   return (
-    <GridItem pl="2" bg="gray.700" area={'category'}>
-      category
+    <GridItem
+      display="flex"
+      flexDirection="row"
+      alignItems={'center'}
+      justifyContent="start"
+      py={'10px'}
+      area={'category'}
+      marginTop="5px"
+      overflowY={'hidden'}
+      overflowX="scroll"
+    >
+      <HStack spacing={'17px'}>
+        <Circle
+          size={'55px'}
+          backgroundImage="url('/mainPhoto2.png')"
+          backgroundSize={'cover'}
+        >
+          test
+        </Circle>
+        <Circle
+          size={'55px'}
+          backgroundImage="url('/mainPhoto2.png')"
+          backgroundSize={'cover'}
+        >
+          test
+        </Circle>
+        <Circle
+          size={'55px'}
+          backgroundImage="url('/mainPhoto2.png')"
+          backgroundSize={'cover'}
+        >
+          test
+        </Circle>
+        <Circle
+          size={'55px'}
+          backgroundImage="url('/mainPhoto2.png')"
+          backgroundSize={'cover'}
+        >
+          test
+        </Circle>
+        <Circle
+          size={'55px'}
+          backgroundImage="url('/mainPhoto2.png')"
+          backgroundSize={'cover'}
+        >
+          test
+        </Circle>
+        <Circle
+          size={'55px'}
+          backgroundImage="url('/mainPhoto2.png')"
+          backgroundSize={'cover'}
+        >
+          test
+        </Circle>
+        <Circle
+          size={'55px'}
+          backgroundImage="url('/mainPhoto2.png')"
+          backgroundSize={'cover'}
+        >
+          test
+        </Circle>
+      </HStack>
     </GridItem>
   )
 }

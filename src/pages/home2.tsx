@@ -10,7 +10,7 @@ export default function Home() {
     <Grid
       width="100%"
       templateAreas={`"header""destach" "category""promo""footer"`}
-      gridTemplateRows={'17% 35% 8% 15% 1fr'}
+      gridTemplateRows={'20% 45% 10% 18% 1fr'}
       gridTemplateColumns={'1fr'}
       height="100vh"
     >
