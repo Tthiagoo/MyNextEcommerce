@@ -23,35 +23,43 @@ export default function Destach() {
       alignItems={'start'}
       justifyContent="center"
     >
-      <Box
-        width="71%"
-        height="15%"
-        bottom="calc(48% - 94px);"
-        position="absolute"
-        backgroundColor="gray.800"
-        borderWidth={'1px'}
+      <Flex
+        width="90%"
+        h="90%"
+        backgroundImage="url('/mainPhoto2.png')"
+        backgroundSize={'cover'}
+        justifyContent="center"
+        borderRadius="10px"
+        alignItems="end"
       >
-        <Stack p={3} spacing={{ base: '5', lg: '10' }}>
-          <Stack spacing={{ base: '1', lg: '4' }}>
-            <Heading size="md">
-              <Text bgClip="text" bgGradient="linear(to-l, #7EA7F6, #8EEEEE)">
-                Winter Is Coming
-              </Text>
-            </Heading>
-            <Heading size="sm" fontWeight="normal">
-              Refresh your wardrobe
-            </Heading>
+        <Box
+          width="71%"
+          height="59%"
+          bottom="calc(55% - 128px);"
+          position="relative"
+          backgroundColor="gray.800"
+          borderWidth={'1px'}
+        >
+          <Stack p={3} spacing={{ base: '5', lg: '10' }}>
+            <Stack spacing={{ base: '1', lg: '4' }}>
+              <Heading size="lg">
+                <Text bgClip="text" bgGradient="linear(to-l, #7EA7F6, #8EEEEE)">
+                  Winter Is Coming
+                </Text>
+              </Heading>
+              <Heading size="sm" fontWeight="normal">
+                Refresh your wardrobe
+              </Heading>
+            </Stack>
+            <HStack spacing="3">
+              <Link color={'blue.300'} fontWeight="bold" fontSize="sm">
+                Discover now
+              </Link>
+              <Icon color={'blue.300'} as={FaArrowRight} />
+            </HStack>
           </Stack>
-          <HStack spacing="3">
-            <Link color={'blue.300'} fontWeight="bold" fontSize="sm">
-              Discover now
-            </Link>
-            <Icon color={'blue.300'} as={FaArrowRight} />
-          </HStack>
-        </Stack>
-      </Box>
-
-      <Image borderRadius="10px" src="/mainPhoto2.png" width="90%" h="90%" />
+        </Box>
+      </Flex>
 
       {/*<Box p={5} shadow="md" borderWidth="1px">
         <Heading fontSize="xl"></Heading>

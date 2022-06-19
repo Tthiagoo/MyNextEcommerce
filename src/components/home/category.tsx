@@ -13,7 +13,7 @@ export default function Category() {
       overflowY={'hidden'}
       overflowX="scroll"
     >
-      <HStack spacing={'17px'}>
+      <HStack spacing={'22px'}>
         <Circle
           size={'55px'}
           backgroundImage="url('/mainPhoto2.png')"
