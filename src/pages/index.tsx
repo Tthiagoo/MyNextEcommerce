@@ -12,12 +12,13 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 import { FaDog, FaSignInAlt } from 'react-icons/fa'
 import { FiGithub, FiLock, FiUser } from 'react-icons/fi'
 import { getSession, signIn } from 'next-auth/react'
 import SocialLogin from '../components/SocialLogin'
+import { api } from '../service/apit'
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const session = await getSession(context)
@@ -41,6 +42,15 @@ const Home: NextPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   //sm, md,lg,xl, 2xl
+
+  async function search() {
+    const response = await api.get('/products/1')
+    console.log(response.data)
+  }
+
+  useEffect(() => {
+    search()
+  }, [])
   return (
     <Center h={'100vh'} width="100%">
       <Flex

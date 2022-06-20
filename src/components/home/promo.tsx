@@ -16,7 +16,7 @@ import { FaArrowRight } from 'react-icons/fa'
 
 export default function Promo() {
   return (
-    <GridItem area={'promo'} marginTop="5px" px="15px">
+    <GridItem area={'promo'} marginTop="10px" marginBottom={'10px'} px="15px">
       <Grid
         h="100%"
         w="100%"
