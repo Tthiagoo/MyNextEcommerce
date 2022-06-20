@@ -2,6 +2,24 @@
  
 Projeto utilizando React, NextJS, chakra Ui ainda em desenvolvimento
 
+
+## Layout :pencil2:
+<p>Algumas imagens das telas deste projeto:</p>
+
+<p align="center">
+  <img alt="MoveIt" src="https://user-images.githubusercontent.com/51219408/174643228-dbbaa74b-d114-4745-8cef-14f08a318160.png" width="20%">
+   <img alt="MoveIt" src="https://user-images.githubusercontent.com/51219408/174643210-acba687a-9129-485a-9a81-7936112c4f20.png" width="20%">
+ 
+</p>
+
+<p align="center" width="80%"> 
+  <img alt="MoveIt" src="https://user-images.githubusercontent.com/51219408/174643061-7d8970c4-20ef-4b34-82d8-ff5c43c4df69.png" width="50%">
+<img alt="MoveIt" src="https://user-images.githubusercontent.com/51219408/174642788-8cf1647c-ced3-4b06-864e-3d8dbafcd415.png" width="40%">
+</p>
+
+
+
+
 Oq falta fazer?
 - [x] Login com google
 - [ ] Login com Facebook
