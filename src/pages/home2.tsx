@@ -1,24 +1,13 @@
-import {
-  Button,
-  Circle,
-  Flex,
-  Grid,
-  GridItem,
-  Image,
-  Text
-} from '@chakra-ui/react'
-import { GetServerSideProps } from 'next'
-import { getSession, signOut, useSession } from 'next-auth/react'
-import { destroyCookie } from 'nookies'
-import Category from '../components/home/category'
+import { Grid } from '@chakra-ui/react'
+
+import Category from '../components/home/Category'
 import Destach from '../components/home/Destach'
-import Header from '../components/home/header'
-import ModalCart from '../components/home/ModalCart'
+import Header from '../components/home/Header'
+
 import Products from '../components/home/Products'
-import Promo from '../components/home/promo'
+import Promo from '../components/home/Promo'
 
 export default function Home() {
-  destroyCookie(null, 'nextCart')
   return (
     <Grid
       width="100%"
@@ -29,9 +18,7 @@ export default function Home() {
       overflowY={'scroll'}
     >
       <Header />
-
       <Destach />
-
       <Category />
       <Promo />
       <Products />

@@ -1,4 +1,4 @@
-import { Box, Stack, Heading, Flex, HStack, Link } from '@chakra-ui/react'
+import { Box, Stack, Heading, Flex, HStack, Link, Text } from '@chakra-ui/react'
 import { parseCookies } from 'nookies'
 import { Product } from '../../../types/ProductsType'
 import { CartItem } from './CartItem'
@@ -6,7 +6,9 @@ import { CartOrderSummary } from './CartOrderSummary'
 import { cartData } from './data'
 export default function Cart() {
   const { nextCart: cartCookie } = parseCookies()
-  const cartFormated = JSON.parse(cartCookie)
+
+  const cartFormated: Array<Product> = cartCookie ? JSON.parse(cartCookie) : []
+
   return (
     <Box
       maxW={{ base: '3xl', lg: '7xl' }}

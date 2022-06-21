@@ -11,7 +11,7 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 import { FaShoppingCart, FaHeart, FaSearch } from 'react-icons/fa'
-import ModalCart from './ModalCart'
+import ModalCart from '../Cart/ModalCart'
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl']

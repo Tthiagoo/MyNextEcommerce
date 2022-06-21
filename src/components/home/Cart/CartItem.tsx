@@ -20,11 +20,9 @@ import { useCartContext } from '../../../context/CartContext'
 import { CartItemsAmount } from '../Products/ProductCart'
 
 export const CartItem = (ProductItem: Product) => {
-  const { cart, updateProductAmount } = useCartContext()
+  const { cart, updateProductAmount, removeProduct } = useCartContext()
 
   async function handleProductIncrement(product: Product) {
-    console.log(ProductItem)
-    console.log(cart)
     await updateProductAmount(
       {
         productId: product.id,
@@ -35,9 +33,6 @@ export const CartItem = (ProductItem: Product) => {
   }
 
   async function handleProductDecrement({ id, amount }: Product) {
-    console.log(cart)
-    console.log('---amout do handle----')
-    console.log(amount)
     await updateProductAmount(
       {
         productId: id,
@@ -51,18 +46,17 @@ export const CartItem = (ProductItem: Product) => {
     return sumAmount
   }, {} as CartItemsAmount)
 
-  const { name, description, imageUrl, currency, price, id, amount } =
-    ProductItem
+  const { name, description, imageUrl, currency, price, id } = ProductItem
   const AmountSelect = (props: SelectProps) => {
     return (
       <ButtonGroup marginLeft={'15px'} size="sm" isAttached variant="outline">
         <IconButton
           aria-label="Add to friends"
-          disabled={ProductItem.amount == 1}
+          disabled={cartItemsAmount[id] == 1}
           onClick={() => handleProductDecrement(ProductItem)}
           icon={<MinusIcon />}
         />
-        {cartItemsAmount[id] || 0}
+        <Button>{cartItemsAmount[id] || 0}</Button>
         <IconButton
           aria-label="Add to friends"
           onClick={() => handleProductIncrement(ProductItem)}

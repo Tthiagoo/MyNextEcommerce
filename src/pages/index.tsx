@@ -13,11 +13,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChangeEvent, useEffect, useState } from 'react'
-import styles from '../styles/Home.module.css'
+
 import { FaDog, FaSignInAlt } from 'react-icons/fa'
 import { FiGithub, FiLock, FiUser } from 'react-icons/fi'
 import { getSession, signIn } from 'next-auth/react'
-import SocialLogin from '../components/SocialLogin'
+import SocialLogin from '../components/Login/SocialLogin'
 import { api } from '../service/apit'
 
 export const getServerSideProps: GetServerSideProps = async context => {

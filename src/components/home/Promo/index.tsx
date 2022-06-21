@@ -4,15 +4,10 @@ import {
   Grid,
   GridItem,
   Heading,
-  HStack,
-  Icon,
-  Link,
-  Stack,
   Text,
   VStack
 } from '@chakra-ui/react'
 import React from 'react'
-import { FaArrowRight } from 'react-icons/fa'
 
 export default function Promo() {
   return (

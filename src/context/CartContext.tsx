@@ -129,7 +129,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
       if (!productInCart) {
         toast({
-          title: 'Produto não esta no carrinho',
+          title: 'Produto não esta',
           status: 'error',
           duration: 7000,
           isClosable: true
@@ -151,7 +151,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         return
       }
       if (handle == 'update') {
-        console.log('update')
         if (productStock.amount < productInCart.amount + 1) {
           toast({
             title: 'Erro  na adição do produto',
@@ -165,9 +164,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       }
 
       if (handle == 'decrete') {
-        console.log('decrete')
-        console.log(amount)
-        console.log()
         if (productStock.amount < amount) {
           toast({
             title: 'Erro na remoção na adição do produto',
@@ -180,7 +176,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         productInCart.amount -= 1
       }
 
-      console.log(productInCart)
       const newCart = [...cart]
 
       setCookie(null, 'nextCart', JSON.stringify(newCart), {
@@ -188,7 +183,6 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         path: '/'
       })
       setCart(newCart)
-      console.log('chegou ate aqui')
     } catch {
       toast({
         title: 'Erro na remoção do produto',

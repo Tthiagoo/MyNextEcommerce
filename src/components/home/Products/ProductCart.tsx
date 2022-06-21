@@ -37,7 +37,6 @@ export const ProductCard = (props: Props) => {
   async function handleAddProduct(id: number) {
     await addProduct(id)
     const { nextCart: cartCookie } = parseCookies()
-    console.log(JSON.parse(cartCookie))
   }
 
   const cartItemsAmount = cart.reduce((sumAmount, product) => {
