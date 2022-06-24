@@ -18,10 +18,7 @@ interface CartContextData {
 
   addProduct: (productId: number) => Promise<void>
   removeProduct: (productId: number) => void
-  updateProductAmount: (
-    { productId, amount }: UpdateProductAmount,
-    handle: string
-  ) => void
+  updateProductAmount: ({ productId, amount }: UpdateProductAmount) => void
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData)
@@ -118,10 +115,10 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     }
   }
 
-  const updateProductAmount = async (
-    { productId, amount }: UpdateProductAmount,
-    handle: string
-  ) => {
+  const updateProductAmount = async ({
+    productId,
+    amount
+  }: UpdateProductAmount) => {
     try {
       if (amount <= 0) return
 
@@ -129,7 +126,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
       if (!productInCart) {
         toast({
-          title: 'Produto não esta',
+          title: 'Erro na alteração do produto do produto',
           status: 'error',
           duration: 7000,
           isClosable: true
@@ -143,38 +140,15 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
       if (productStock.amount < amount) {
         toast({
-          title: 'Erro na remoção do produto',
+          title: 'Quantidade solicitada fora de estoque',
           status: 'error',
           duration: 7000,
           isClosable: true
         })
         return
       }
-      if (handle == 'update') {
-        if (productStock.amount < productInCart.amount + 1) {
-          toast({
-            title: 'Erro  na adição do produto',
-            status: 'error',
-            duration: 7000,
-            isClosable: true
-          })
-          return
-        }
-        productInCart.amount += 1
-      }
 
-      if (handle == 'decrete') {
-        if (productStock.amount < amount) {
-          toast({
-            title: 'Erro na remoção na adição do produto',
-            status: 'error',
-            duration: 7000,
-            isClosable: true
-          })
-          return
-        }
-        productInCart.amount -= 1
-      }
+      productInCart.amount = amount
 
       const newCart = [...cart]
 
@@ -185,7 +159,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       setCart(newCart)
     } catch {
       toast({
-        title: 'Erro na remoção do produto',
+        title: 'Erro na alteração de quantidade do produto',
         status: 'error',
         duration: 7000,
         isClosable: true

@@ -15,32 +15,44 @@ import { PriceTag } from './PriceTag'
 import { CartProductMeta } from './CartProductMeta'
 import { PhoneIcon, AddIcon, WarningIcon, MinusIcon } from '@chakra-ui/icons'
 import { Product } from '../../../types/ProductsType'
-import { parseCookies } from 'nookies'
+
 import { useCartContext } from '../../../context/CartContext'
 import { CartItemsAmount } from '../Products/ProductCart'
+import { formatPrice } from '../../../utils/format'
 
 export const CartItem = (ProductItem: Product) => {
   const { cart, updateProductAmount, removeProduct } = useCartContext()
 
+  const cartFormatted = cart.map(product => ({
+    ...product,
+    formattedPrice: formatPrice(product.price),
+    formattedSubtotalPrice: formatPrice(product.price * product.amount)
+  }))
+  const total = formatPrice(
+    cart.reduce((sumTotal, product) => {
+      sumTotal += product.price * product.amount
+      return sumTotal
+    }, 0)
+  )
+
   async function handleProductIncrement(product: Product) {
-    await updateProductAmount(
-      {
-        productId: product.id,
-        amount: cartItemsAmount[product.id]
-      },
-      'update'
-    )
+    await updateProductAmount({
+      productId: product.id,
+      amount: product.amount + 1
+    })
   }
 
-  async function handleProductDecrement({ id, amount }: Product) {
-    await updateProductAmount(
-      {
-        productId: id,
-        amount: amount
-      },
-      'decrete'
-    )
+  async function handleProductDecrement(product: Product) {
+    await updateProductAmount({
+      productId: product.id,
+      amount: product.amount - 1
+    })
   }
+
+  function handleRemoveProduct(productId: number) {
+    removeProduct(productId)
+  }
+
   const cartItemsAmount = cart.reduce((sumAmount, product) => {
     sumAmount[product.id] = product.amount
     return sumAmount
