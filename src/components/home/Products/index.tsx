@@ -1,9 +1,8 @@
 import { GridItem, Heading } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { useCartContext } from '../../../context/CartContext'
 import { api } from '../../../service/apit'
 import { Product } from '../../../types/ProductsType'
-import { ProductCard } from './ProductCart'
+import { ProductCard } from './ProductCard'
 import { ProductGrid } from './ProductGrid'
 
 export default function Products() {

@@ -6,10 +6,11 @@ import {
   useColorModeValue as mode
 } from '@chakra-ui/react'
 import * as React from 'react'
+import { useState } from 'react'
 
 interface PriceTagProps {
   currency: string
-  price: number
+  price: string
   salePrice?: number
   rootProps?: StackProps
   priceProps?: TextProps
@@ -22,7 +23,7 @@ export function formatPrice(
   value: number,
   opts: { locale?: string; currency?: string } = {}
 ) {
-  const { locale = 'en-US', currency = 'USD' } = opts
+  const { locale = 'PT-BR', currency = 'BRL' } = opts
   const formatter = new Intl.NumberFormat(locale, {
     currency,
     style: 'currency',
@@ -34,10 +35,11 @@ export function formatPrice(
 export const PriceTag = (props: PriceTagProps) => {
   const { price, currency, salePrice, rootProps, priceProps, salePriceProps } =
     props
+
   return (
     <HStack marginLeft="5px" spacing="1" {...rootProps}>
       <Price isOnSale={!!salePrice} textProps={priceProps}>
-        {formatPrice(price, { currency })}
+        {price}
       </Price>
       {salePrice && (
         <SalePrice {...salePriceProps}>

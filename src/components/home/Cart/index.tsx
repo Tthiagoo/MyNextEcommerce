@@ -1,13 +1,26 @@
 import { Box, Stack, Heading, Flex, HStack, Link, Text } from '@chakra-ui/react'
-import { parseCookies } from 'nookies'
-import { Product } from '../../../types/ProductsType'
+
+import { useCartContext } from '../../../context/CartContext'
+
+import { formatPrice } from '../../../utils/format'
 import { CartItem } from './CartItem'
 import { CartOrderSummary } from './CartOrderSummary'
-import { cartData } from './data'
-export default function Cart() {
-  const { nextCart: cartCookie } = parseCookies()
 
-  const cartFormated: Array<Product> = cartCookie ? JSON.parse(cartCookie) : []
+export default function Cart() {
+  const { cart } = useCartContext()
+
+  const cartFormatted = cart.map(product => ({
+    ...product,
+    formattedPrice: formatPrice(product.price),
+    formattedSubtotalPrice: formatPrice(product.price * product.amount)
+  }))
+  console.log(cartFormatted)
+  const total = formatPrice(
+    cart.reduce((sumTotal, product) => {
+      sumTotal += product.price * product.amount
+      return sumTotal
+    }, 0)
+  )
 
   return (
     <Box
@@ -27,8 +40,13 @@ export default function Cart() {
           </Heading>
 
           <Stack spacing="6">
-            {cartFormated.map((item: Product) => (
-              <CartItem key={item.id} {...item} />
+            {cartFormatted.map(item => (
+              <CartItem
+                key={item.id}
+                {...item}
+                formatedPrice={item.formattedPrice}
+                formattedSubtotalPrice={item.formattedSubtotalPrice}
+              />
             ))}
           </Stack>
         </Stack>

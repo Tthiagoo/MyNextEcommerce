@@ -14,7 +14,7 @@ import { FaShoppingCart, FaHeart, FaSearch } from 'react-icons/fa'
 import ModalCart from '../Cart/ModalCart'
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl']
+  const sizes = ['xs', 'sm', 'md', 'lg', '3xl', '4xl']
   return (
     <>
       <Modal isOpen={isOpen} size={sizes} onClose={onClose}>

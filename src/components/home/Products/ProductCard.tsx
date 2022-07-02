@@ -73,7 +73,7 @@ export const ProductCard = (props: PropsCard) => {
           <PriceTag
             price={restProps.product.price}
             salePrice={restProps.product.salePrice}
-            currency="USD"
+            currency="BRL"
           />
           <Text>
             {' '}

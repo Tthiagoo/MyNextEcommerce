@@ -3,12 +3,8 @@ import {
   ButtonGroup,
   CloseButton,
   Flex,
-  Icon,
   IconButton,
-  Link,
-  Select,
-  SelectProps,
-  useColorModeValue
+  Link
 } from '@chakra-ui/react'
 import * as React from 'react'
 import { PriceTag } from './PriceTag'
@@ -17,23 +13,14 @@ import { PhoneIcon, AddIcon, WarningIcon, MinusIcon } from '@chakra-ui/icons'
 import { Product } from '../../../types/ProductsType'
 
 import { useCartContext } from '../../../context/CartContext'
-import { CartItemsAmount } from '../Products/ProductCart'
-import { formatPrice } from '../../../utils/format'
 
-export const CartItem = (ProductItem: Product) => {
-  const { cart, updateProductAmount, removeProduct } = useCartContext()
+interface ProductFormated extends Product {
+  formatedPrice: String
+  formattedSubtotalPrice: string
+}
 
-  const cartFormatted = cart.map(product => ({
-    ...product,
-    formattedPrice: formatPrice(product.price),
-    formattedSubtotalPrice: formatPrice(product.price * product.amount)
-  }))
-  const total = formatPrice(
-    cart.reduce((sumTotal, product) => {
-      sumTotal += product.price * product.amount
-      return sumTotal
-    }, 0)
-  )
+export const CartItem = (ProductItem: ProductFormated) => {
+  const { updateProductAmount, removeProduct } = useCartContext()
 
   async function handleProductIncrement(product: Product) {
     await updateProductAmount({
@@ -53,22 +40,27 @@ export const CartItem = (ProductItem: Product) => {
     removeProduct(productId)
   }
 
-  const cartItemsAmount = cart.reduce((sumAmount, product) => {
-    sumAmount[product.id] = product.amount
-    return sumAmount
-  }, {} as CartItemsAmount)
+  const {
+    name,
+    description,
+    imageUrl,
+    currency,
+    id,
+    amount,
+    formatedPrice,
+    formattedSubtotalPrice
+  } = ProductItem
 
-  const { name, description, imageUrl, currency, price, id } = ProductItem
-  const AmountSelect = (props: SelectProps) => {
+  const AmountSelect = () => {
     return (
       <ButtonGroup marginLeft={'15px'} size="sm" isAttached variant="outline">
         <IconButton
           aria-label="Add to friends"
-          disabled={cartItemsAmount[id] == 1}
+          disabled={amount == 1}
           onClick={() => handleProductDecrement(ProductItem)}
           icon={<MinusIcon />}
         />
-        <Button>{cartItemsAmount[id] || 0}</Button>
+        <Button>{amount}</Button>
         <IconButton
           aria-label="Add to friends"
           onClick={() => handleProductIncrement(ProductItem)}
@@ -84,7 +76,12 @@ export const CartItem = (ProductItem: Product) => {
       justify="space-between"
       align="center"
     >
-      <CartProductMeta name={name} description={description} image={imageUrl} />
+      <CartProductMeta
+        formatedPrice={formatedPrice}
+        name={name}
+        description={description}
+        image={imageUrl}
+      />
 
       {/* Desktop */}
       <Flex
@@ -93,8 +90,11 @@ export const CartItem = (ProductItem: Product) => {
         display={{ base: 'none', md: 'flex' }}
       >
         <AmountSelect />
-        <PriceTag price={price} currency={currency} />
-        <CloseButton aria-label={`Delete ${name} from cart`} />
+        <PriceTag price={formattedSubtotalPrice} currency={currency} />
+        <CloseButton
+          aria-label={`Delete ${name} from cart`}
+          onClick={() => handleRemoveProduct(id)}
+        />
       </Flex>
 
       {/* Mobile */}
@@ -105,13 +105,16 @@ export const CartItem = (ProductItem: Product) => {
         justify="space-between"
         display={{ base: 'flex', md: 'none' }}
       >
-        <Link fontSize="sm" textDecor="underline">
+        <Link
+          onClick={() => handleRemoveProduct(id)}
+          fontSize="sm"
+          textDecor="underline"
+        >
           Delete
         </Link>
-        <AmountSelect value={cartItemsAmount[id] || 0} />
-        <PriceTag price={price} currency={currency} />
+        <AmountSelect />
+        <PriceTag price={formattedSubtotalPrice} currency={currency} />
       </Flex>
     </Flex>
   )
 }
-React.memo(CartItem)

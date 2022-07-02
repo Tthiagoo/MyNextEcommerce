@@ -16,3 +16,8 @@ export interface Product {
   }
   salePrice?: undefined
 }
+
+export interface Stock {
+  id: number
+  amount: number
+}

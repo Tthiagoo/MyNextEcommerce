@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { api } from '../service/apit'
-import { Product } from '../types/ProductsType'
+import { Product, Stock } from '../types/ProductsType'
 import { useToast } from '@chakra-ui/react'
 import { parseCookies, setCookie } from 'nookies'
 
@@ -41,15 +41,15 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const productInCart = cart?.find(product => product.id === productId)
 
       if (productInCart) {
-        const { data: productStock } = await api.get<Product>(
-          `/products/${productId}`
+        const { data: productStock } = await api.get<Stock>(
+          `/stock/${productId}`
         )
 
         if (productStock.amount < productInCart.amount + 1) {
           toast({
             title: 'Produto Fora de estoque',
             status: 'error',
-            duration: 7000,
+            duration: 2000,
             isClosable: true
           })
           return
@@ -81,7 +81,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       toast({
         title: 'Erro na adição do produto',
         status: 'error',
-        duration: 7000,
+        duration: 2000,
         isClosable: true
       })
     }
@@ -89,27 +89,30 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      const updateCart = [...cart]
-      const productIndex = updateCart.findIndex(
-        product => product.id === productId
-      )
+      const productInCart = cart.find(product => product.id === productId)
 
-      if (productIndex >= 0) {
-        const cartSplice = updateCart.splice(productIndex, 1)
-        setCart(cartSplice)
-      } else {
+      if (!productInCart) {
         toast({
           title: 'Erro na remoção do produto',
           status: 'error',
-          duration: 7000,
+          duration: 2000,
           isClosable: true
         })
+        return
       }
+
+      const newCart = cart.filter(product => product.id !== productId)
+
+      setCookie(null, 'nextCart', JSON.stringify(newCart), {
+        maxAge: 86400 * 7,
+        path: '/'
+      })
+      setCart(newCart)
     } catch {
       toast({
         title: 'Erro na remoção do produto',
         status: 'error',
-        duration: 7000,
+        duration: 2000,
         isClosable: true
       })
     }
@@ -128,21 +131,19 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         toast({
           title: 'Erro na alteração do produto do produto',
           status: 'error',
-          duration: 7000,
+          duration: 2000,
           isClosable: true
         })
         return
       }
 
-      const { data: productStock } = await api.get<Product>(
-        `/products/${productId}`
-      )
+      const { data: productStock } = await api.get<Stock>(`/stock/${productId}`)
 
       if (productStock.amount < amount) {
         toast({
           title: 'Quantidade solicitada fora de estoque',
           status: 'error',
-          duration: 7000,
+          duration: 2000,
           isClosable: true
         })
         return
@@ -161,7 +162,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       toast({
         title: 'Erro na alteração de quantidade do produto',
         status: 'error',
-        duration: 7000,
+        duration: 2000,
         isClosable: true
       })
     }
