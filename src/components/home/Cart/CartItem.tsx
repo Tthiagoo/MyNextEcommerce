@@ -14,7 +14,7 @@ import { Product } from '../../../types/ProductsType'
 
 import { useCartContext } from '../../../context/CartContext'
 
-interface ProductFormated extends Product {
+export interface ProductFormated extends Product {
   formatedPrice: String
   formattedSubtotalPrice: string
 }

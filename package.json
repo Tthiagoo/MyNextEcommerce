@@ -25,7 +25,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
-    "react-responsive-carousel": "^3.2.23"
+    "react-responsive-carousel": "^3.2.23",
+    "stripe": "^9.11.0"
   },
   "devDependencies": {
     "@swc/core": "^1.2.204",

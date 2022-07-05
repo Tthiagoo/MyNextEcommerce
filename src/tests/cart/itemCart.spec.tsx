@@ -1,9 +1,9 @@
 import { render, fireEvent } from '@testing-library/react'
-import { CartItem } from '../../components/home/Cart/CartItem'
+import { CartItem, ProductFormated } from '../../components/home/Cart/CartItem'
 import { useCartContext } from '../../context/CartContext'
 
 import { Product } from '../../types/ProductsType'
-let item: Product
+let item: ProductFormated
 jest.mock('../../context/CartContext')
 const mockedUseCartContext = useCartContext as jest.Mock
 const mockedUpdateProductAmount = jest.fn()
@@ -42,6 +42,11 @@ describe('tests cart modal', () => {
     })
   })
   it('should be able to increase/decrease a product amount', () => {
-    render(<CartItem {...item} />)
+    const { getAllByTestId, rerender } =  render(<CartItem {...item} />)
+    const [incrementFirstProduct] = getAllByTestId('increment-product');
+    const [, decrementSecondProduct] = getAllByTestId('decrement-product');
+    const [firstProductAmount, secondProductAmount] = getAllByTestId(
+      'product-amount'
+    );
   })
 })
