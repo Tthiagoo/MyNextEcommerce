@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
-export default function Home() {
+export default function Info() {
   const { data: session } = useSession()
   //console.log(session)
 

@@ -13,22 +13,40 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChangeEvent, useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import { FaDog, FaSignInAlt } from 'react-icons/fa'
 import { FiGithub, FiLock, FiUser } from 'react-icons/fi'
-import { getSession, signIn } from 'next-auth/react'
+import { getSession, signIn, useSession } from 'next-auth/react'
 import SocialLogin from '../components/Login/SocialLogin'
-import { api } from '../service/apit'
+import { api, apiStrapi } from '../service/apit'
+
+interface iUser {
+  email: string
+}
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const session = await getSession(context)
 
   if (session) {
-    return {
-      redirect: {
-        destination: '/home',
-        permanent: false
+    console.log(session)
+    console.log('foiii')
+    const getUsers = await apiStrapi.get('/api/users')
+    console.log(getUsers.data)
+    const result = getUsers.data.find(
+      (user: iUser) => user.email === `${session?.user?.email}`
+    )
+    if (!result) {
+      const username = `${session?.user?.name}-${uuidv4()}`
+      const data = {
+        name: `${session?.user?.name}`,
+        email: `${session?.user?.email}`,
+        photo: `${session?.user?.image}`,
+        username,
+        password: uuidv4()
       }
+      const response = await apiStrapi.post('api/users', data)
+      console.log(response.data)
     }
   }
   return {
@@ -42,6 +60,10 @@ const Home: NextPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   //sm, md,lg,xl, 2xl
+
+  async function CreateUserWithSocial() {
+    const { data: session } = useSession()
+  }
 
   async function search() {
     const response = await api.get('/products/1')
@@ -119,7 +141,7 @@ const Home: NextPage = () => {
               color="#e9e6e6"
               style={{ cursor: 'pointer', marginRight: 10 }}
             />
-            Não tenho cadastro
+            <Link href={'/register'}>Não tenho cadastro</Link>
           </Flex>
         </Flex>
 

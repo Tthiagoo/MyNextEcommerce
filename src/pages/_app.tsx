@@ -1,4 +1,3 @@
-import './styles.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import { SessionProvider } from 'next-auth/react'
