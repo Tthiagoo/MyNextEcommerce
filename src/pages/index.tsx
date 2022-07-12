@@ -4,20 +4,18 @@ import {
   Heading,
   Input,
   Button,
-  Box,
   Center,
   Divider
 } from '@chakra-ui/react'
 import type { GetServerSideProps, NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+
 import Link from 'next/link'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-import { FaDog, FaSignInAlt } from 'react-icons/fa'
-import { FiGithub, FiLock, FiUser } from 'react-icons/fi'
-import { getSession, signIn, useSession } from 'next-auth/react'
+import { FaSignInAlt } from 'react-icons/fa'
+
+import { getSession, useSession } from 'next-auth/react'
 import SocialLogin from '../components/Login/SocialLogin'
 import { api, apiStrapi } from '../service/apit'
 
@@ -47,6 +45,18 @@ export const getServerSideProps: GetServerSideProps = async context => {
       }
       const response = await apiStrapi.post('api/users', data)
       console.log(response.data)
+      return {
+        redirect: {
+          destination: '/home',
+          permanent: false
+        }
+      }
+    }
+    return {
+      redirect: {
+        destination: '/home',
+        permanent: false
+      }
     }
   }
   return {
@@ -61,17 +71,6 @@ const Home: NextPage = () => {
   const [password, setPassword] = useState('')
   //sm, md,lg,xl, 2xl
 
-  async function CreateUserWithSocial() {
-    const { data: session } = useSession()
-  }
-
-  async function search() {
-    const response = await api.get('/products/1')
-  }
-
-  useEffect(() => {
-    search()
-  }, [])
   return (
     <Center h={'100vh'} width="100%">
       <Flex

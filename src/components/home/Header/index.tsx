@@ -10,9 +10,13 @@ import {
   Modal,
   useDisclosure
 } from '@chakra-ui/react'
+import { GetServerSideProps } from 'next'
+import { getSession, useSession } from 'next-auth/react'
 import { FaShoppingCart, FaHeart, FaSearch } from 'react-icons/fa'
 import ModalCart from '../Cart/ModalCart'
+
 export default function Header() {
+  const { data: session } = useSession()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const sizes = ['xs', 'sm', 'md', 'lg', '3xl', '4xl']
   return (
@@ -40,7 +44,7 @@ export default function Header() {
           <Avatar
             size={'md'}
             name="Dan Abrahmov"
-            src="https://bit.ly/dan-abramov"
+            src={`${session?.user?.image}`}
           />
         </Flex>
         <Flex w={'100%'} marginTop="10px" h={'50%'}>
